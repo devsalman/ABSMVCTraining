@@ -1,0 +1,3 @@
+//define your product configuration here
+productline MyProduct;
+	features DefaultFeature;
