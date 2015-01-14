@@ -11,6 +11,11 @@ class RouteConfigImpl implements RouteConfig
 	{
 		String result = case url
 		{
+		    // Account pages
+		    "/account/register.abs" => "MAccountController.AccountControllerImpl@register";
+		    "/account/detail.abs" => "MAccountController.AccountControllerImpl@detail";
+		    "/account/saving.abs" => "MAccountController.AccountControllerImpl@saving";
+		    "/account/withdraw.abs" => "MAccountController.AccountControllerImpl@withdraw";
 			_ => "";
 		};
 		

@@ -1,0 +1,88 @@
+module MAccountData;
+
+export AccountData, AccountDataImpl;
+import Account, AccountImpl from MAccountModel;
+
+interface AccountData 
+{
+
+    List<Account> all();
+    Account findByID(String id);
+    Bool save(Account account);
+    Bool delete(String id);
+}
+
+class AccountDataImpl implements AccountData 
+{
+
+    List<Account> accounts = Nil;
+    Int nextID = 0;
+
+    List<Account> all() 
+    { 
+        return accounts; 
+    }
+
+    Account findByID(String id) 
+    { 
+        Account found = null;
+        Int count = length(accounts);
+        Int i = 0;
+
+        if(id != "-1") 
+        {
+            while(i < count && found != null) 
+            {
+                Account current = nth(accounts, i);
+                String currentID = current.getID();
+
+                if(currentID == id)
+                {
+                    found = current;
+                }
+
+                i = i + 1;
+            }
+        }
+
+        return found;
+    }
+
+    Bool save(Account account) 
+    {
+        Bool saved = False;
+        String id = account.getID();
+        Account existing = this.findByID(id);
+
+        if(id != "-1") 
+        {
+            accounts = without(accounts, existing);
+            accounts = appendright(accounts, account);
+            saved = True;
+        } 
+        else 
+        {
+            nextID = nextID + 1;
+            String newID = intToString(nextID);
+            account.setID(newID);
+            accounts = appendright(accounts, account);
+            saved = True;
+        }
+
+        return saved;
+    }
+
+    Bool delete(String id) 
+    {
+        Bool deleted = False;
+        Account found = this.findByID(id);
+
+        if(found != null) 
+        {
+            accounts = without(accounts, found);
+            deleted = True;
+        }
+
+        return deleted;
+    }
+}

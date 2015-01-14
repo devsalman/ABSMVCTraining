@@ -1,34 +1,64 @@
 module MAccountController;
 import Account, AccountImpl from MAccountModel;
+import AccountData, AccountDataImpl from MAccountData;
 import ABSHttpRequest from ABS.Framework.Http;
 
 interface AccountController
 {
-	List<String, Pair<Account>> register(ABSHttpRequest request);
-	List<String, Pair<Account>> saving(ABSHttpRequest request);
-	List<String, Pair<Account>> withdraw(ABSHttpRequest request);
+	Pair<String, List<Account>> register(ABSHttpRequest request);
+    Pair<String, List<Account>> detail(ABSHttpRequest request);
+	Pair<String, List<Account>> saving(ABSHttpRequest request);
+	Pair<String, List<Account>> withdraw(ABSHttpRequest request);
 }
 
 class AccountControllerImpl implements AccountController
 {
-	List<String, Pair<Account>> register(ABSHttpRequest request)
+    AccountData db = null;
+
+    String registerView = "base_account_register";
+    String registerSuccessView = "base_account_register_success";
+    String registerFailView = "base_account_register_fail";
+
+    String detailView = "base_account_detail";
+
+    String savingView = "base_account_saving";
+    String savingSuccessView = "base_account_saving_success";
+    String savingFailView = "base_account_saving_fail";
+
+    String withdrawView= "base_account_withdraw";
+    String withdrawSuccessView = "base_account_withdraw_success";
+    String withdrawFailView = "base_account_withdraw_fail";
+
+	Pair<String, List<Account>> register(ABSHttpRequest request)
 	{
 		//TODO: add the implementation here
 
-		return Nil;
+		return Pair(registerSuccessView, Nil);
 	}
 
-	List<String, Pair<Account>> saving(ABSHttpRequest request)
+	Pair<String, List<Account>> detail(ABSHttpRequest request)
 	{
 		//TODO: add the implementation here
 
-		return Nil;
+		return Pair(detailView, Nil);
+    }
+
+	Pair<String, List<Account>> saving(ABSHttpRequest request)
+	{
+		//TODO: add the implementation here
+
+		return Pair(savingView, Nil);
 	}
 
-	List<String, Pair<Account>> withdraw(ABSHttpRequest request)
+	Pair<String, List<Account>> withdraw(ABSHttpRequest request)
 	{
 		//TODO: add the implementation here
 		
-		return Nil;
+		return Pair(withdrawView, Nil);
 	}
+
+    Unit setDB(AccountData db)
+    {
+        this.db = db;
+    }
 }
