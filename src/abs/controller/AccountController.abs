@@ -20,6 +20,7 @@ class AccountControllerImpl implements AccountController
     String registerFailView = "base_account_register_fail";
 
     String detailView = "base_account_detail";
+    String detailFailView = "base_account_detail_fail";
 
     String savingView = "base_account_saving";
     String savingSuccessView = "base_account_saving_success";
@@ -31,30 +32,104 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> register(ABSHttpRequest request)
 	{
-		//TODO: add the implementation here
+        String balance = request.getInput("form.balance");
+        String interest = request.getInput("form.interest");
+        String kind = request.getInput("form.kind");
+        String name = request.getInput("form.name");
 
-		return Pair(registerSuccessView, Nil);
+        String view = registerView;
+        List<Account> dataList = Nil;
+
+        // TODO check existing account by its name?
+        Account newAccount = new AccountImpl();
+        newAccount.setBalance(balance);
+        newAccount.setInterest(interest);
+        newAccount.setKind(kind);
+        newAccount.setName(name);
+
+        Bool registered = db.save(newAccount);
+
+        if(registered == True)
+        {
+            view = registerSuccessView;
+        }
+        else
+        {
+            view = registerFailView;
+        }
+
+		return Pair(view, dataList);
 	}
 
 	Pair<String, List<Account>> detail(ABSHttpRequest request)
 	{
-		//TODO: add the implementation here
+        String id = request.getInput("form.id");
+        
+        String view = detailView;
+        List<Account> dataList = Nil;
 
-		return Pair(detailView, Nil);
+        Account toFind = db.findByID(id);
+
+        if(toFind == null)
+        {
+            view = detailFailView;
+        }
+        else
+        {
+            dataList = appendright(dataList, toFind);
+        }
+
+		return Pair(view, dataList);
     }
 
 	Pair<String, List<Account>> saving(ABSHttpRequest request)
 	{
-		//TODO: add the implementation here
+        String id = request.getInput("form.id");
+        String amount = request.getInput("form.amount");
 
-		return Pair(savingView, Nil);
+        String view = savingView;
+        List<Account> dataList = Nil;
+        
+        Account toUpdate = db.findByID(id);
+
+        if(toUpdate == null)
+        {
+            view = savingFailView;
+        }
+        else
+        {
+            toUpdate.setAmount(amount);
+            db.save(toUpdate);
+            view = savingSuccessView;
+            dataList = appendright(dataList, toUpdate);
+        }
+
+		return Pair(view, dataList);
 	}
 
 	Pair<String, List<Account>> withdraw(ABSHttpRequest request)
 	{
-		//TODO: add the implementation here
-		
-		return Pair(withdrawView, Nil);
+        String id = request.getInput("form.id");
+        String amount = request.getInput("form.amount");
+
+        String view = withdrawView;
+        List<Account> dataList = Nil;
+
+        Account toUpdate = db.findByID(id);
+
+        if(toUpdate == null)
+        {
+            view = savingFailView;
+        }
+        else
+        {
+            toUpdate.setAmount(amount);
+            db.save(toUpdate);
+            view = savingSuccessView;
+            dataList = appendright(dataList, toUpdate);
+        }
+
+		return Pair(view, dataList);
 	}
 
     Unit setDB(AccountData db)
