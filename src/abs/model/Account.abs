@@ -1,0 +1,49 @@
+module MAccountModel;
+export *;
+
+interface Account
+{
+	Unit setBalance(String balance);
+	String getBalance();
+	Unit setInterest(String interest);
+	String getInterest();
+	Unit setType(String type);
+	String getType();
+}
+
+class AccountImpl implements Account
+{
+	String balance;
+	String interest;
+	String type;
+
+	Unit setBalanace(String balance)
+	{
+		this.balance = balance;
+	}
+
+	String getBalance()
+	{
+		return this.balance;
+	}
+
+	Unit setInterest(String interest)
+	{
+		this.interest = interest;
+	}
+
+	String getInterest()
+	{
+		return this.interest;
+	}
+
+	Unit setType(String type)
+	{
+		this.type = type;
+	}
+
+	String getType()
+	{
+		return this.type;
+	}
+}

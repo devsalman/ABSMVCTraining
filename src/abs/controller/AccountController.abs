@@ -1,0 +1,34 @@
+module MAccountController;
+import Account, AccountImpl from MAccountModel;
+import ABSHttpRequest from ABS.Framework.Http;
+
+interface AccountController
+{
+	List<String, Pair<Account>> register(ABSHttpRequest request);
+	List<String, Pair<Account>> saving(ABSHttpRequest request);
+	List<String, Pair<Account>> withdraw(ABSHttpRequest request);
+}
+
+class AccountControllerImpl implements AccountController
+{
+	List<String, Pair<Account>> register(ABSHttpRequest request)
+	{
+		//TODO: add the implementation here
+
+		return Nil;
+	}
+
+	List<String, Pair<Account>> saving(ABSHttpRequest request)
+	{
+		//TODO: add the implementation here
+
+		return Nil;
+	}
+
+	List<String, Pair<Account>> withdraw(ABSHttpRequest request)
+	{
+		//TODO: add the implementation here
+		
+		return Nil;
+	}
+}
