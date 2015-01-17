@@ -44,7 +44,7 @@ class AccountControllerImpl implements AccountController
         List<Account> dataList = Nil;
 
         // TODO check existing account by its name?
-        Account newAccount = new AccountImpl();
+        Account newAccount = new local AccountImpl();
         newAccount.setBalance(balance);
         newAccount.setInterest(interest);
         newAccount.setKind(kind);

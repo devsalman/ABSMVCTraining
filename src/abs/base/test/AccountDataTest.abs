@@ -1,47 +1,62 @@
 module MAccountDataTest;
 
+export AccountDataTest, AccountDataTestImpl;
 import AccountData, AccountDataImpl from MAccountData;
 import Account, AccountImpl from MAccountModel;
 
+
+interface AccountDataTest 
+{ 
+
+}
+
+class AccountDataTestImpl implements AccountDataTest
+{ 
+	Unit run() 
+	{
+	    // Dummy data
+	    Account a1 = new local AccountImpl();
+	    Account a2 = new local AccountImpl();
+	    Account a3 = new local AccountImpl();
+	
+	    a1.setBalance("1000");
+	    a2.setBalance("2000");
+	    a3.setBalance("500");
+	
+	    a1.setInterest("5");
+	    a2.setInterest("10");
+	    a3.setInterest("20");
+	
+	    
+	    a1.setKind("Saving");
+	    a2.setKind("Saving");
+	    a3.setKind("Saving");
+	
+	    a1.setName("Langsing");
+	    a2.setName("Gemuk");
+	    a3.setName("Kurus");
+	
+	    // Dummy data source
+	    AccountData db = new local AccountDataImpl();
+	    db.save(a1);
+	    db.save(a2);
+	    db.save(a3);
+	
+	    // Test
+	    List<Account> dataList = db.all();
+	    Int n = length(dataList);
+	    Int nExpected = 3;
+	    String test1 = "";
+	
+	    if(n == nExpected)
+	        test1 = "Pass";
+	    else
+	        test1 = "Fail";
+	
+	    String finish = "";
+	}
+}
+
 {
-    // Dummy data
-    Account a1 = new local AccountImpl();
-    Account a2 = new local AccountImpl();
-    Account a3 = new local AccountImpl();
-
-    a1.setBalance("1000");
-    a2.setBalance("2000");
-    a3.setBalance("500");
-
-    a1.setInterest("5");
-    a2.setInterest("10");
-    a3.setInterest("20");
-
-    
-    a1.setKind("Saving");
-    a2.setKind("Saving");
-    a3.setKind("Saving");
-
-    a1.setName("Langsing");
-    a2.setName("Gemuk");
-    a3.setName("Kurus");
-
-    // Dummy data source
-    AccountData db = new local AccountDataImpl();
-    db.save(a1);
-    db.save(a2);
-    db.save(a3);
-
-    // Test
-    List<Account> dataList = db.all();
-    Int n = length(dataList);
-    Int nExpected = 3;
-    String test1 = "";
-
-    if(n == nExpected)
-        test1 = "Pass";
-    else
-        test1 = "Fail";
-
-    String finish = "";
+    AccountDataTest testObject = new local AccountDataTestImpl();
 }
