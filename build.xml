@@ -5,7 +5,7 @@
 	<property name="lib" location="lib" />
 	<property name="src" location="src" />
 	<property name="target" location="target" />
-	<property name="dist" location="dist" />
+	<property name="web" location="web" />
 
 	<property name="src.abs" location="${src}/abs" />
 	
@@ -13,9 +13,6 @@
 	<property name="target.java.bin" location="${target}/java/bin" />
 
 	<property name="lib.abs" location="${lib}/absfrontend.jar" />
-	
-	<property name="server" location="D:/GitHub/ABSServer" />
-	<property name="server.web" location="${server}/web" />
 
 	<path id="build.abs.classpath">
 		<pathelement location="${lib.abs}" />
@@ -73,15 +70,9 @@
 		</copy>
 	</target>
 	
-	<target name="abs.build.jar" depends="abs.compile.java">
+	<target name="abs.deploy" depends="abs.compile.java">
 		<jar 
-			destfile="${dist}/app.jar"
+			destfile="${web}/app.jar"
 			basedir="${target.java.bin}" />
-	</target>
-
-	<target name="abs.deploy" depends="abs.build.jar">
-		<copy todir="${server.web}">
-			<file file="${dist}/app.jar" />
-		</copy>
 	</target>
 </project>

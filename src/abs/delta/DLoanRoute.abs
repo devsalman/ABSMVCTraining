@@ -13,7 +13,7 @@ modifies class RouteConfigImpl
                 // Just a temporary placeholder to show how to delta URL router
                 "/loan/detail.abs" => "MLoanController.LoanControllerImpl@detail";
                 _ => "";
-            }
+            };
         }
 
         return result;
