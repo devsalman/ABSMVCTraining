@@ -44,6 +44,7 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> register(ABSHttpRequest request)
 	{
+        // HTTP POST Request
         String balance = "0";
         String interest = "0";
         String kind = request.getInput("form.kind");
@@ -67,7 +68,8 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> detail(ABSHttpRequest request)
 	{
-        String id = request.getInput("form.id");
+        // HTTP GET Request
+        String id = request.getInput("id");
         
         String view = detailView;
         List<Account> dataList = Nil;
@@ -88,14 +90,32 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> savingForm(ABSHttpRequest request)
     {
+        // Initialise DB
+        this.init();
+
+        // HTTP GET Request
+        String id = request.getInput("id");
+
         String view = savingFormView;
         List<Account> dataList = Nil;
+
+        Account toFind = db.findByID(id);
+
+        if(toFind == null)
+        {
+            view = savingFailView;
+        }
+        else
+        {
+            dataList = appendright(dataList, toFind);
+        }
 
         return Pair(view, dataList);
     }
 
 	Pair<String, List<Account>> saving(ABSHttpRequest request)
 	{
+        // HTTP POST Request
         String id = request.getInput("form.id");
         String amount = request.getInput("form.amount");
 
@@ -121,7 +141,11 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> withdrawForm(ABSHttpRequest request)
     {
-        String id = request.getInput("form.id");
+        // Initialise DB
+        this.init();
+
+        // HTTP GET Request
+        String id = request.getInput("id");
 
         String view = withdrawFormView;
         List<Account> dataList = Nil;
@@ -142,6 +166,7 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> withdraw(ABSHttpRequest request)
 	{
+        // HTTP POST Request
         String id = request.getInput("form.id");
         String amount = request.getInput("form.amount");
 
@@ -170,9 +195,9 @@ class AccountControllerImpl implements AccountController
         this.db = db;
     }
 
-    Unit run()
+    Unit init()
     {
-	    // Dummy data
+	    // Dummy data initialisation
 	    Account a1 = new local AccountImpl();
 	    Account a2 = new local AccountImpl();
 	    Account a3 = new local AccountImpl();
