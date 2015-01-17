@@ -121,8 +121,25 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> withdrawForm(ABSHttpRequest request)
     {
+        // TODO: Render form by account ID
+        //String id = request.getInput("form.id");
+
         String view = withdrawFormView;
         List<Account> dataList = Nil;
+
+        //Account toFind = db.findByID(id);
+
+        /*
+        if(toFind == null)
+        {
+            //view = withdrawFailView;
+            view = withdrawFormView;
+        }
+        else
+        {
+            dataList = appendright(dataList, toFind);
+        }
+        */
 
         return Pair(view, dataList);
     }
