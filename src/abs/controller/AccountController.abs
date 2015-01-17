@@ -5,12 +5,16 @@ import ABSHttpRequest from ABS.Framework.Http;
 
 interface AccountController
 {
+    Pair<String, List<Account>> registerForm(ABSHttpRequest request);
 	Pair<String, List<Account>> register(ABSHttpRequest request);
+
     Pair<String, List<Account>> detail(ABSHttpRequest request);
 
     // TODO: Rename saving to deposit?
+	Pair<String, List<Account>> savingForm(ABSHttpRequest request);
 	Pair<String, List<Account>> saving(ABSHttpRequest request);
 
+	Pair<String, List<Account>> withdrawForm(ABSHttpRequest request);
 	Pair<String, List<Account>> withdraw(ABSHttpRequest request);
 }
 
@@ -18,20 +22,31 @@ class AccountControllerImpl implements AccountController
 {
     AccountData db = null;
 
-    String registerView = "base_account_register";
+    String registerFormView = "base_account_register";
     String registerSuccessView = "base_account_register_success";
     String registerFailView = "base_account_register_fail";
 
     String detailView = "base_account_detail";
     String detailFailView = "base_account_detail_fail";
 
-    String savingView = "base_account_saving";
+    String savingFormView = "base_account_saving";
     String savingSuccessView = "base_account_saving_success";
     String savingFailView = "base_account_saving_fail";
 
-    String withdrawView= "base_account_withdraw";
+    String withdrawFormView= "base_account_withdraw";
     String withdrawSuccessView = "base_account_withdraw_success";
     String withdrawFailView = "base_account_withdraw_fail";
+
+    Pair<String, List<Account>> registerForm(ABSHttpRequest request)
+    {
+        String view = registerFormView;
+        List<Account> dataList = Nil;
+
+        Account form = new local AccountImpl();
+        dataList = appendright(dataList, form);
+
+        return Pair(view, dataList);
+    }
 
 	Pair<String, List<Account>> register(ABSHttpRequest request)
 	{
@@ -40,7 +55,7 @@ class AccountControllerImpl implements AccountController
         String kind = request.getInput("form.kind");
         String name = request.getInput("form.name");
 
-        String view = registerView;
+        String view = registerFormView;
         List<Account> dataList = Nil;
 
         // TODO check existing account by its name?
@@ -86,12 +101,20 @@ class AccountControllerImpl implements AccountController
 		return Pair(view, dataList);
     }
 
+    Pair<String, List<Account>> savingForm(ABSHttpRequest request)
+    {
+        String view = savingFormView;
+        List<Account> dataList = Nil;
+
+        return Pair(view, dataList);
+    }
+
 	Pair<String, List<Account>> saving(ABSHttpRequest request)
 	{
         String id = request.getInput("form.id");
         String amount = request.getInput("form.amount");
 
-        String view = savingView;
+        String view = savingFormView;
         List<Account> dataList = Nil;
         
         Account toUpdate = db.findByID(id);
@@ -111,12 +134,20 @@ class AccountControllerImpl implements AccountController
 		return Pair(view, dataList);
 	}
 
+    Pair<String, List<Account>> withdrawForm(ABSHttpRequest request)
+    {
+        String view = withdrawFormView;
+        List<Account> dataList = Nil;
+
+        return Pair(view, dataList);
+    }
+
 	Pair<String, List<Account>> withdraw(ABSHttpRequest request)
 	{
         String id = request.getInput("form.id");
         String amount = request.getInput("form.amount");
 
-        String view = withdrawView;
+        String view = withdrawFormView;
         List<Account> dataList = Nil;
 
         Account toUpdate = db.findByID(id);
