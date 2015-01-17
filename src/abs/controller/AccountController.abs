@@ -29,13 +29,13 @@ class AccountControllerImpl implements AccountController
     String detailView = "base_account_detail";
     String detailFailView = "base_account_detail_fail";
 
-    String savingFormView = "base_account_saving";
-    String savingSuccessView = "base_account_saving_success";
-    String savingFailView = "base_account_saving_fail";
+    String savingFormView = "saving/form";
+    String savingSuccessView = "saving/success";
+    String savingFailView = "saving/fail";
 
-    String withdrawFormView= "base_account_withdraw";
-    String withdrawSuccessView = "base_account_withdraw_success";
-    String withdrawFailView = "base_account_withdraw_fail";
+    String withdrawFormView= "withdraw/form";
+    String withdrawSuccessView = "withdraw/success";
+    String withdrawFailView = "withdraw/fail";
 
     Pair<String, List<Account>> registerForm(ABSHttpRequest request)
     {
@@ -121,25 +121,21 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> withdrawForm(ABSHttpRequest request)
     {
-        // TODO: Render form by account ID
-        //String id = request.getInput("form.id");
+        String id = request.getInput("form.id");
 
         String view = withdrawFormView;
         List<Account> dataList = Nil;
 
-        //Account toFind = db.findByID(id);
+        Account toFind = db.findByID(id);
 
-        /*
         if(toFind == null)
         {
-            //view = withdrawFailView;
-            view = withdrawFormView;
+            view = withdrawFailView;
         }
         else
         {
             dataList = appendright(dataList, toFind);
         }
-        */
 
         return Pair(view, dataList);
     }
@@ -172,5 +168,45 @@ class AccountControllerImpl implements AccountController
     Unit setDB(AccountData db)
     {
         this.db = db;
+    }
+
+    Unit run()
+    {
+	    // Dummy data
+	    Account a1 = new local AccountImpl();
+	    Account a2 = new local AccountImpl();
+	    Account a3 = new local AccountImpl();
+
+	    a1.setBalance("1000");
+	    a2.setBalance("2000");
+	    a3.setBalance("500");
+	
+	    a1.setInterest("5");
+	    a2.setInterest("10");
+	    a3.setInterest("20");
+	
+	    a1.setKind("Saving");
+	    a2.setKind("Saving");
+	    a3.setKind("Saving");
+	
+	    a1.setName("Langsing");
+	    a2.setName("Gemuk");
+	    a3.setName("Kurus");
+
+	    a1.setAddress("Jl. Lurus");
+	    a2.setAddress("Jl. Buntu");
+	    a3.setAddress("Jl. Belok");
+
+	    a1.setPhone("080989999");
+	    a2.setPhone("14045");
+	    a3.setPhone("500505");
+	
+	    // Dummy data source
+	    AccountData db = new local AccountDataImpl();
+	    db.save(a1);
+	    db.save(a2);
+	    db.save(a3);
+
+        this.setDB(db);
     }
 }
