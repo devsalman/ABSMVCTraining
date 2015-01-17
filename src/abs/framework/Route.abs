@@ -12,9 +12,12 @@ class RouteConfigImpl implements RouteConfig
 		String result = case url
 		{
 		    // Account pages
+            "/account/registerForm.abs" => "MAccountController.AccountControllerImpl@registerForm";
 		    "/account/register.abs" => "MAccountController.AccountControllerImpl@register";
 		    "/account/detail.abs" => "MAccountController.AccountControllerImpl@detail";
+            "/account/savingForm.abs" => "MAccountController.AccountControllerImpl@savingForm";
 		    "/account/saving.abs" => "MAccountController.AccountControllerImpl@saving";
+            "/account/withdrawForm.abs" => "MAccountController.AccountControllerImpl@withdrawForm";
 		    "/account/withdraw.abs" => "MAccountController.AccountControllerImpl@withdraw";
 			_ => "";
 		};
