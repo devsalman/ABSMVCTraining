@@ -39,45 +39,30 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> registerForm(ABSHttpRequest request)
     {
-        String view = registerFormView;
-        List<Account> dataList = Nil;
-
-        Account form = new local AccountImpl();
-        dataList = appendright(dataList, form);
-
-        return Pair(view, dataList);
+        return Pair("register/form", Nil);
     }
 
 	Pair<String, List<Account>> register(ABSHttpRequest request)
 	{
-        String balance = request.getInput("form.balance");
-        String interest = request.getInput("form.interest");
+        String balance = "0";
+        String interest = "0";
         String kind = request.getInput("form.kind");
         String name = request.getInput("form.name");
+        String address = request.getInput("form.address");
+        String phone = request.getInput("form.phone");
 
-        String view = registerFormView;
-        List<Account> dataList = Nil;
 
-        // TODO check existing account by its name?
-        Account newAccount = new local AccountImpl();
-        newAccount.setBalance(balance);
-        newAccount.setInterest(interest);
-        newAccount.setKind(kind);
-        newAccount.setName(name);
-
-        Bool registered = db.save(newAccount);
-
-        if(registered == True)
-        {
-            view = registerSuccessView;
-            dataList = appendright(dataList, newAccount);
-        }
-        else
-        {
-            view = registerFailView;
-        }
-
-		return Pair(view, dataList);
+        List<Account> dataList = Nil;        
+        Account account = new local AccountImpl();
+        account.setName(name);
+        account.setAddress(address);
+        account.setPhone(phone);
+        account.setKind(kind);
+        account.setBalance(balance);
+        account.setInterest(interest);
+        
+        dataList = appendright(dataList, account);
+		return Pair("register/success", dataList);
 	}
 
 	Pair<String, List<Account>> detail(ABSHttpRequest request)

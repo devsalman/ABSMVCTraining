@@ -7,6 +7,10 @@ interface Account
     String getID();
     Unit setName(String name);
     String getName();
+    Unit setAddress(String address);
+    String getAddress();
+    Unit setPhone(String phone);
+    String getPhone();
 	Unit setBalance(String balance);
 	String getBalance();
 	Unit setInterest(String interest);
@@ -19,6 +23,8 @@ class AccountImpl implements Account
 {
     String id = "-1";
     String name = "";
+    String address = "";
+    String phone = "";
 	String balance = "";
 	String interest = "";
     String kind = "";
@@ -41,6 +47,26 @@ class AccountImpl implements Account
     String getName()
     {
         return this.name;
+    }
+    
+    Unit setAddress(String address)
+    {
+    	this.address = address;
+    }
+    
+    String getAddress()
+    {
+    	return this.address;
+    }
+    
+    Unit setPhone(String phone)
+    {
+    	this.phone = phone;
+    }
+    
+    String getPhone()
+    {
+    	return this.phone;
     }
 
 	Unit setBalance(String balance)

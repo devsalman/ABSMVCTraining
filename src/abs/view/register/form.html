@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Account Registration</title>
+	</head>
+	<body>
+		<h1>Account Registration</h1>
+		<form method="POST" action="register.abs">
+			<table>
+				<tbody>
+					<tr>
+						<td>Name</td>
+						<td>:</td>
+						<td><input type="text" name="form.name" placeholder="your account name"/></td>
+					</tr>
+					<tr>
+						<td>Address</td>
+						<td>:</td>
+						<td><input type="text" name="form.address" placeholder="your home address"/></td>
+					</tr>
+					<tr>
+						<td>Phone Number</td>
+						<td>:</td>
+						<td><input type="text" name="form.phone" placeholder="your phone number"/></td>
+					</tr>
+					<tr>
+						<td>Account Type</td>
+						<td>:</td>
+						<td>
+							<select name="form.kind">
+								<option value="Personal">Personal</option>
+								<option value="Corporate">Corporate</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="submit" value="Register" />
+		</form>
+	</body>
+</html>
