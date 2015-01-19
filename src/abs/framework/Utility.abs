@@ -34,14 +34,21 @@ class UtilityImpl implements Utility
 
             while(idx < length)
             {
+                // Parse the first digit
                 String ch = substr(inputString, 0, 1);
                 Int digit = this.parseDigit(ch);
+
+                // Multiply the digit to its "tens" values
                 Int temp = digit * tens;
+
+                // And add it to the output
                 output = output + temp;
 
+                // Move to the next digit
                 idx = idx + 1;
                 tens = tens / 10;
 
+                // Reduce string to exclude parsed first digit
                 Int remainingLength = strlen(inputString);
                 inputString = substr(inputString, 1, remainingLength - 1);
             }
