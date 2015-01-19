@@ -25,7 +25,7 @@ class AccountControllerImpl implements AccountController
 
     String registerFormView = "register/form";
     String registerSuccessView = "register/success";
-    String registerFailView = "base_account_register_fail";
+    String registerFailView = "register/fail";
 
     String detailView = "base_account_detail";
     String detailFailView = "base_account_detail_fail";
