@@ -1,2 +1,26 @@
-//define your product here
-product Default();
+// Define your product(s) here.
+product CheckAccount (
+    Account,
+        Type{interest = 0},
+        Check
+);
+
+product SavingAccount (
+    Account,
+        Type{interest = 5},
+        Save
+);
+
+/*
+product InvalidCheckAccount (
+    Account,
+        Type{interest = 10},
+        Check
+);
+
+product InvalidSavingAccount (
+    Account,
+        Type{interest = 0},
+        Save
+);
+*/
