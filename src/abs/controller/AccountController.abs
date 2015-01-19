@@ -23,8 +23,8 @@ class AccountControllerImpl implements AccountController
 {
     AccountData db = null;
 
-    String registerFormView = "base_account_register";
-    String registerSuccessView = "base_account_register_success";
+    String registerFormView = "register/form";
+    String registerSuccessView = "register/success";
     String registerFailView = "base_account_register_fail";
 
     String detailView = "base_account_detail";
@@ -40,7 +40,7 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> registerForm(ABSHttpRequest request)
     {
-        return Pair("register/form", Nil);
+        return Pair(registerFormView, Nil);
     }
 
 	Pair<String, List<Account>> register(ABSHttpRequest request)
@@ -68,7 +68,7 @@ class AccountControllerImpl implements AccountController
         //account.setInterest(interest);
         
         dataList = appendright(dataList, account);
-		return Pair("register/success", dataList);
+		return Pair(registerSuccessView, dataList);
 	}
 
 	Pair<String, List<Account>> detail(ABSHttpRequest request)
