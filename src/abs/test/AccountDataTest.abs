@@ -19,13 +19,13 @@ class AccountDataTestImpl implements AccountDataTest
 	    Account a2 = new local AccountImpl();
 	    Account a3 = new local AccountImpl();
 	
-	    a1.setBalance("1000");
-	    a2.setBalance("2000");
-	    a3.setBalance("500");
+	    a1.setBalance(1000);
+	    a2.setBalance(2000);
+	    a3.setBalance(500);
 	
-	    a1.setInterest("5");
-	    a2.setInterest("10");
-	    a3.setInterest("20");
+	    a1.setInterest(5);
+	    a2.setInterest(10);
+	    a3.setInterest(20);
 	
 	    
 	    a1.setKind("Saving");
