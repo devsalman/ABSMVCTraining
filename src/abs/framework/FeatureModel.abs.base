@@ -1,0 +1,15 @@
+root Service {
+    group allof {
+        Account {
+            group allof {
+                Type {
+                    group oneof {
+                        Check { ifin: Type.interest == 0; },
+                        Save { ifin: Type.interest > 0; }
+                    }
+                    Int interest;
+                }
+            }
+        }
+    }
+}

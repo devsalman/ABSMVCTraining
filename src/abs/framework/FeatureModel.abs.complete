@@ -1,0 +1,40 @@
+root Service {
+    group allof {
+        Account {
+            group allof {
+                Type {
+                    group oneof {
+                        Check { ifin: Type.interest == 0; },
+                        Save { ifin: Type.interest > 0; }
+                    }
+                    Int interest;
+                }
+            }
+        },
+        opt Overdraft {
+        	exclude: Save;
+        	exclude: Loan;
+        },
+        opt Loan {
+        	group oneof {
+        		OpenEnd { 
+        			group allof {
+        				opt CreditCard {
+        					group oneof {
+        						Bronze { ifin: OpenEnd.limit == 500; },
+        						Silver { ifin: OpenEnd.limit == 1000; },
+        						Gold { ifin: OpenEnd.limit == 2000; }
+        					}
+        				},
+        				opt Student { 
+        					ifin: OpenEnd.limit == 1500; 
+        					exclude: Gold;
+        				}
+        			}
+        			Int limit in [1..100]; 
+        		},
+        		CloseEnd { Int principal; }
+        	}
+        }
+    }
+}
