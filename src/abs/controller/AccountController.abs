@@ -49,14 +49,14 @@ class AccountControllerImpl implements AccountController
 
         // HTTP POST Request
         String balanceStr = "0";
-        String interestStr = "0";
+        //String interestStr = "0";
         String kind = request.getInput("form.kind");
         String name = request.getInput("form.name");
         String address = request.getInput("form.address");
         String phone = request.getInput("form.phone");
 
         Int balance = util.stringToInteger(balanceStr);
-        Int interest = util.stringToInteger(interestStr);
+        //Int interest = util.stringToInteger(interestStr);
 
         List<Account> dataList = Nil;        
         Account account = new local AccountImpl();
@@ -65,7 +65,7 @@ class AccountControllerImpl implements AccountController
         account.setPhone(phone);
         account.setKind(kind);
         account.setBalance(balance);
-        account.setInterest(interest);
+        //account.setInterest(interest);
         
         dataList = appendright(dataList, account);
 		return Pair("register/success", dataList);
@@ -242,9 +242,9 @@ class AccountControllerImpl implements AccountController
 	    a2.setBalance(2000);
 	    a3.setBalance(500);
 	
-	    a1.setInterest(5);
-	    a2.setInterest(10);
-	    a3.setInterest(20);
+	    //a1.setInterest(5);
+	    //a2.setInterest(10);
+	    //a3.setInterest(20);
 	
 	    a1.setKind("Saving");
 	    a2.setKind("Saving");
