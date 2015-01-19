@@ -2,6 +2,7 @@ module MAccountController;
 import Account, AccountImpl from MAccountModel;
 import AccountData, AccountDataImpl from MAccountData;
 import ABSHttpRequest from ABS.Framework.Http;
+import Utility, UtilityImpl from ABS.Framework.Utility;
 
 interface AccountController
 {
@@ -44,14 +45,18 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> register(ABSHttpRequest request)
 	{
+        Utility util = new local UtilityImpl();
+
         // HTTP POST Request
-        String balance = "0";
-        String interest = "0";
+        String balanceStr = "0";
+        String interestStr = "0";
         String kind = request.getInput("form.kind");
         String name = request.getInput("form.name");
         String address = request.getInput("form.address");
         String phone = request.getInput("form.phone");
 
+        Int balance = util.stringToInteger(balanceStr);
+        Int interest = util.stringToInteger(interestStr);
 
         List<Account> dataList = Nil;        
         Account account = new local AccountImpl();
@@ -68,8 +73,11 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> detail(ABSHttpRequest request)
 	{
+        Utility util = new local UtilityImpl();
+
         // HTTP GET Request
-        String id = request.getInput("id");
+        String idStr = request.getInput("id");
+        Int id = util.stringToInteger(idStr);
         
         String view = detailView;
         List<Account> dataList = Nil;
@@ -90,11 +98,14 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> savingForm(ABSHttpRequest request)
     {
+        Utility util = new local UtilityImpl();
+
         // Initialise DB
         this.init();
 
         // HTTP GET Request
-        String id = request.getInput("id");
+        String idStr = request.getInput("id");
+        Int id = util.stringToInteger(idStr);
 
         String view = savingFormView;
         List<Account> dataList = Nil;
@@ -115,9 +126,13 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> saving(ABSHttpRequest request)
 	{
+        Utility util = new local UtilityImpl();
+
         // HTTP POST Request
-        String id = request.getInput("form.id");
-        String amount = request.getInput("form.amount");
+        String idStr = request.getInput("form.id");
+        String amountStr = request.getInput("form.amount");
+        Int id = util.stringToInteger(idStr);
+        Int amount = util.stringToInteger(amountStr);
 
         String view = savingFormView;
         List<Account> dataList = Nil;
@@ -130,8 +145,12 @@ class AccountControllerImpl implements AccountController
         }
         else
         {
-            toUpdate.setBalance(amount);
+            Int currentBalance = toUpdate.getBalance();
+            currentBalance = currentBalance + amount;
+
+            toUpdate.setBalance(currentBalance);
             db.save(toUpdate);
+
             view = savingSuccessView;
             dataList = appendright(dataList, toUpdate);
         }
@@ -141,11 +160,14 @@ class AccountControllerImpl implements AccountController
 
     Pair<String, List<Account>> withdrawForm(ABSHttpRequest request)
     {
+        Utility util = new local UtilityImpl();
+
         // Initialise DB
         this.init();
 
         // HTTP GET Request
-        String id = request.getInput("id");
+        String idStr = request.getInput("id");
+        Int id = util.stringToInteger(idStr);
 
         String view = withdrawFormView;
         List<Account> dataList = Nil;
@@ -166,9 +188,13 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> withdraw(ABSHttpRequest request)
 	{
+        Utility util = new local UtilityImpl();
+
         // HTTP POST Request
-        String id = request.getInput("form.id");
-        String amount = request.getInput("form.amount");
+        String idStr = request.getInput("form.id");
+        String amountStr = request.getInput("form.amount");
+        Int id = util.stringToInteger(idStr);
+        Int amount = util.stringToInteger(amountStr);
 
         String view = withdrawFormView;
         List<Account> dataList = Nil;
@@ -181,10 +207,20 @@ class AccountControllerImpl implements AccountController
         }
         else
         {
-            toUpdate.setBalance(amount);
-            db.save(toUpdate);
-            view = savingSuccessView;
-            dataList = appendright(dataList, toUpdate);
+            Int currentBalance = toUpdate.getBalance();
+            currentBalance = currentBalance - amount;
+
+            if(currentBalance < 0)
+            {
+                view = savingFailView;
+            }
+            else
+            {
+                toUpdate.setBalance(currentBalance);
+                db.save(toUpdate);
+                view = savingSuccessView;
+                dataList = appendright(dataList, toUpdate);
+            }
         }
 
 		return Pair(view, dataList);
@@ -202,13 +238,13 @@ class AccountControllerImpl implements AccountController
 	    Account a2 = new local AccountImpl();
 	    Account a3 = new local AccountImpl();
 
-	    a1.setBalance("1000");
-	    a2.setBalance("2000");
-	    a3.setBalance("500");
+	    a1.setBalance(1000);
+	    a2.setBalance(2000);
+	    a3.setBalance(500);
 	
-	    a1.setInterest("5");
-	    a2.setInterest("10");
-	    a3.setInterest("20");
+	    a1.setInterest(5);
+	    a2.setInterest(10);
+	    a3.setInterest(20);
 	
 	    a1.setKind("Saving");
 	    a2.setKind("Saving");
