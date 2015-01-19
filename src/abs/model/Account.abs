@@ -13,8 +13,8 @@ interface Account
     String getPhone();
 	Unit setBalance(Int balance);
 	Int getBalance();
-	Unit setInterest(Int interest);
-	Int getInterest();
+	//Unit setInterest(Int interest);
+	//Int getInterest();
 	Unit setKind(String kind);
 	String getKind();
 }
@@ -26,7 +26,7 @@ class AccountImpl implements Account
     String address = "";
     String phone = "";
 	Int balance = 0;
-	Int interest = 0;
+	//Int interest = 0;
     String kind = "";
 
     Unit setID(Int id)
@@ -79,6 +79,7 @@ class AccountImpl implements Account
 		return this.balance;
 	}
 
+    /*
 	Unit setInterest(Int interest)
 	{
 		this.interest = interest;
@@ -88,6 +89,7 @@ class AccountImpl implements Account
 	{
 		return this.interest;
 	}
+    */
 
 	Unit setKind(String kind)
 	{
