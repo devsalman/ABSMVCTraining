@@ -9,7 +9,7 @@ interface AccountData
     List<Account> all();
     Account findByID(Int id);
     Bool save(Account account);
-    Bool delete(String id);
+    Bool delete(Int id);
 }
 
 class AccountDataImpl implements AccountData 
@@ -34,7 +34,7 @@ class AccountDataImpl implements AccountData
             while(i < count && found != null) 
             {
                 Account current = nth(accounts, i);
-                String currentID = current.getID();
+                Int currentID = current.getID();
 
                 if(currentID == id)
                 {
@@ -63,7 +63,7 @@ class AccountDataImpl implements AccountData
         else 
         {
             nextID = nextID + 1;
-            account.setID(nextId);
+            account.setID(nextID);
             accounts = appendright(accounts, account);
             saved = True;
         }
@@ -71,7 +71,7 @@ class AccountDataImpl implements AccountData
         return saved;
     }
 
-    Bool delete(String id) 
+    Bool delete(Int id) 
     {
         Bool deleted = False;
         Account found = this.findByID(id);

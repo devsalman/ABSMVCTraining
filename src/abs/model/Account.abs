@@ -3,7 +3,7 @@ export Account, AccountImpl;
 
 interface Account
 {
-    Int setID(Int id);
+    Unit setID(Int id);
     Int getID();
     Unit setName(String name);
     String getName();
