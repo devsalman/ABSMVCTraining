@@ -34,7 +34,7 @@ modifies class AccountControllerImpl
     {
         List<Account> accounts = this.db.all();
         Int idx = 0;
-        Int n = count(accounts);
+        Int n = length(accounts);
 
         while(idx < n)
         {
