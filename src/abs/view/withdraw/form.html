@@ -1,49 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<!-- HTML Head -->
-	<head th:include="base_fragments :: base_head">
-        <title>Withdraw Money</title>
-	</head>
-	<body>
-		<!-- Navigation -->
-		<div th:include="base_fragments :: base_nav">
-		</div>
-        
-		<!-- Page Content -->
-		<div class="container">
-            <div class="row">
-                <form method="POST" action="withdraw.abs">
-                    <h1>Withdraw Form</h1>
-                    <div class="form-group">
-                        <label for="form.id">ID</label>
-                        <input type="text" class="form-control" 
-                            name="form.id" id="form.id" 
-                            th:value="${data.id}" 
-                            disabled="disabled"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="form.balance">Balance</label>
-                        <input type="text" class="form-control" 
-                            name="form.balance" id="form.balance" 
-                            th:value="${data.balance}" 
-                            disabled="disabled"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="form.amount">Amount</label>
-                        <input type="text" class="form-control" 
-                            id="form.amount" name="form.amount" 
-                            placeholder="Enter amount"/>
-                    </div>
-                    <button type="submit" class="btn btn-primary">  
-                        Withdraw Money
-                    </button>
-                </form>
-            </div>
-		</div>
-		
-		<!-- Footer & JS -->
-		<div class="container" 
-            th:include="base_fragments :: base_footer">
-		</div>
-	</body>
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Internet Banking - Withdrawal</title>
+</head>
+<body>
+	<h3>Withdraw Money</h3>
+	<form method="post" action="withdraw.abs">
+		<input type="text" name="nominal" /> <input type="submit" value="withdraw" />
+	</form>
+	<a href="loginForm.abs">Back to main screen</a>
+</body>
 </html>

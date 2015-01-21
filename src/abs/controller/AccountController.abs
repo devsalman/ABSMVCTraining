@@ -2,236 +2,108 @@ module MAccountController;
 import Account, AccountImpl from MAccountModel;
 import AccountData, AccountDataImpl from MAccountData;
 import ABSHttpRequest from ABS.Framework.Http;
+import Utility, UtilityImpl from ABS.Framework.Utility;
 
 interface AccountController
 {
-    Pair<String, List<Account>> registerForm(ABSHttpRequest request);
-	Pair<String, List<Account>> register(ABSHttpRequest request);
-
-    Pair<String, List<Account>> detail(ABSHttpRequest request);
-
-    // TODO: Rename saving to deposit?
-	Pair<String, List<Account>> savingForm(ABSHttpRequest request);
-	Pair<String, List<Account>> saving(ABSHttpRequest request);
-
+    Pair<String, List<Account>> loginForm(ABSHttpRequest request);
+	Pair<String, List<Account>> login(ABSHttpRequest request);
+	Pair<String, List<Account>> checkBalance(ABSHttpRequest request);
+	Pair<String, List<Account>> depositForm(ABSHttpRequest request);
+	Pair<String, List<Account>> deposit(ABSHttpRequest request);
 	Pair<String, List<Account>> withdrawForm(ABSHttpRequest request);
 	Pair<String, List<Account>> withdraw(ABSHttpRequest request);
 }
 
 class AccountControllerImpl implements AccountController
 {
-    AccountData db = null;
-
-    String registerFormView = "base_account_register";
-    String registerSuccessView = "base_account_register_success";
-    String registerFailView = "base_account_register_fail";
-
-    String detailView = "base_account_detail";
-    String detailFailView = "base_account_detail_fail";
-
-    String savingFormView = "saving/form";
-    String savingSuccessView = "saving/success";
-    String savingFailView = "saving/fail";
-
-    String withdrawFormView= "withdraw/form";
-    String withdrawSuccessView = "withdraw/success";
-    String withdrawFailView = "withdraw/fail";
-
-    Pair<String, List<Account>> registerForm(ABSHttpRequest request)
+    Pair<String, List<Account>> loginForm(ABSHttpRequest request)
     {
-        return Pair("register/form", Nil);
+        return Pair("login/form", Nil);
     }
 
-	Pair<String, List<Account>> register(ABSHttpRequest request)
+	Pair<String, List<Account>> login(ABSHttpRequest request)
 	{
-        // HTTP POST Request
-        String balance = "0";
-        String interest = "0";
-        String kind = request.getInput("form.kind");
-        String name = request.getInput("form.name");
-        String address = request.getInput("form.address");
-        String phone = request.getInput("form.phone");
+		AccountData db = new local AccountDataImpl();
+		db.init();
+		
+		Account account = db.getAccount();
 
-
-        List<Account> dataList = Nil;        
-        Account account = new local AccountImpl();
-        account.setName(name);
-        account.setAddress(address);
-        account.setPhone(phone);
-        account.setKind(kind);
-        account.setBalance(balance);
-        account.setInterest(interest);
-        
-        dataList = appendright(dataList, account);
-		return Pair("register/success", dataList);
+		String cardNumber = request.getInput("card_number");
+		String pin = request.getInput("pin");
+		String pinAccount = account.getPin();
+		
+		Pair<String, List<Account>> response = Pair("login/failed", Nil);
+		if(pinAccount == pin)
+		{
+            List<Account> dataModel = Nil;
+            dataModel = appendright(dataModel, account);
+            response = Pair("login/success", dataModel);
+		}
+		
+		return response;
 	}
+	
 
-	Pair<String, List<Account>> detail(ABSHttpRequest request)
-	{
-        // HTTP GET Request
-        String id = request.getInput("id");
-        
-        String view = detailView;
-        List<Account> dataList = Nil;
-
-        Account toFind = db.findByID(id);
-
-        if(toFind == null)
-        {
-            view = detailFailView;
-        }
-        else
-        {
-            dataList = appendright(dataList, toFind);
-        }
-
-		return Pair(view, dataList);
-    }
-
-    Pair<String, List<Account>> savingForm(ABSHttpRequest request)
+	Pair<String, List<Account>> depositForm(ABSHttpRequest request)
     {
-        // Initialise DB
-        this.init();
-
-        // HTTP GET Request
-        String id = request.getInput("id");
-
-        String view = savingFormView;
-        List<Account> dataList = Nil;
-
-        Account toFind = db.findByID(id);
-
-        if(toFind == null)
-        {
-            view = savingFailView;
-        }
-        else
-        {
-            dataList = appendright(dataList, toFind);
-        }
-
-        return Pair(view, dataList);
+        return Pair("deposit/form", Nil);
     }
 
-	Pair<String, List<Account>> saving(ABSHttpRequest request)
-	{
-        // HTTP POST Request
-        String id = request.getInput("form.id");
-        String amount = request.getInput("form.amount");
+    Pair<String, List<Account>> deposit(ABSHttpRequest request)
+    {
+    	Utility utility = new local UtilityImpl();
+    	String nominalStr = request.getInput("nominal");
+    	Int nominal = utility.stringToInteger(nominalStr);
 
-        String view = savingFormView;
-        List<Account> dataList = Nil;
-        
-        Account toUpdate = db.findByID(id);
+    	AccountData db = new local AccountDataImpl();
+    	db.init();
 
-        if(toUpdate == null)
-        {
-            view = savingFailView;
-        }
-        else
-        {
-            toUpdate.setBalance(amount);
-            db.save(toUpdate);
-            view = savingSuccessView;
-            dataList = appendright(dataList, toUpdate);
-        }
+    	Account account = db.getAccount();
+    	Int balance = account.getBalance();
+    	Int currentBalance = balance + nominal;
+    	account.setBalance(currentBalance);
 
-		return Pair(view, dataList);
-	}
+    	List<Account> dataModel = Nil;
+    	dataModel = appendright(dataModel, account);
+
+    	return Pair("checkBalance", dataModel);
+    }
 
     Pair<String, List<Account>> withdrawForm(ABSHttpRequest request)
     {
-        // Initialise DB
-        this.init();
-
-        // HTTP GET Request
-        String id = request.getInput("id");
-
-        String view = withdrawFormView;
-        List<Account> dataList = Nil;
-
-        Account toFind = db.findByID(id);
-
-        if(toFind == null)
-        {
-            view = withdrawFailView;
-        }
-        else
-        {
-            dataList = appendright(dataList, toFind);
-        }
-
-        return Pair(view, dataList);
+        return Pair("withdraw/form", Nil);
     }
 
-	Pair<String, List<Account>> withdraw(ABSHttpRequest request)
+    Pair<String, List<Account>> withdraw(ABSHttpRequest request)
+    {
+    	Utility utility = new local UtilityImpl();
+    	String nominalStr = request.getInput("nominal");
+    	Int nominal = utility.stringToInteger(nominalStr);
+
+    	AccountData db = new local AccountDataImpl();
+    	db.init();
+
+    	Account account = db.getAccount();
+    	Int balance = account.getBalance();
+    	Int currentBalance = balance - nominal;
+    	account.setBalance(currentBalance);
+
+    	List<Account> dataModel = Nil;
+    	dataModel = appendright(dataModel, account);
+
+    	return Pair("checkBalance", dataModel);
+    }
+
+	Pair<String, List<Account>> checkBalance(ABSHttpRequest request)
 	{
-        // HTTP POST Request
-        String id = request.getInput("form.id");
-        String amount = request.getInput("form.amount");
+		AccountData db = new local AccountDataImpl();
+		db.init();
 
-        String view = withdrawFormView;
-        List<Account> dataList = Nil;
+		Account account = db.getAccount();
+		List<Account> dataModel = Nil;
+		dataModel = appendright(dataModel, account);
 
-        Account toUpdate = db.findByID(id);
-
-        if(toUpdate == null)
-        {
-            view = savingFailView;
-        }
-        else
-        {
-            toUpdate.setBalance(amount);
-            db.save(toUpdate);
-            view = savingSuccessView;
-            dataList = appendright(dataList, toUpdate);
-        }
-
-		return Pair(view, dataList);
+		return Pair("checkBalance", dataModel);
 	}
-
-    Unit setDB(AccountData db)
-    {
-        this.db = db;
-    }
-
-    Unit init()
-    {
-	    // Dummy data initialisation
-	    Account a1 = new local AccountImpl();
-	    Account a2 = new local AccountImpl();
-	    Account a3 = new local AccountImpl();
-
-	    a1.setBalance("1000");
-	    a2.setBalance("2000");
-	    a3.setBalance("500");
-	
-	    a1.setInterest("5");
-	    a2.setInterest("10");
-	    a3.setInterest("20");
-	
-	    a1.setKind("Saving");
-	    a2.setKind("Saving");
-	    a3.setKind("Saving");
-	
-	    a1.setName("Langsing");
-	    a2.setName("Gemuk");
-	    a3.setName("Kurus");
-
-	    a1.setAddress("Jl. Lurus");
-	    a2.setAddress("Jl. Buntu");
-	    a3.setAddress("Jl. Belok");
-
-	    a1.setPhone("080989999");
-	    a2.setPhone("14045");
-	    a3.setPhone("500505");
-	
-	    // Dummy data source
-	    AccountData db = new local AccountDataImpl();
-	    db.save(a1);
-	    db.save(a2);
-	    db.save(a3);
-
-        this.setDB(db);
-    }
 }
