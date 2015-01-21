@@ -4,11 +4,13 @@
 	<title>Internet Banking - Withdrawal</title>
 </head>
 <body>
+	<div th:replace="fragments :: menu"></div>
 	<h3>Withdraw Money</h3>
 	<form method="post" action="withdraw.abs">
-		<input type="text" name="nominal" /> <input type="submit" value="withdraw" />
+		<input type="text" name="nominal" />
+		<input type="submit" value="withdraw" />
 	</form>
 	<br />
-	<a href="loginForm.abs">Back to main screen</a>
+	<div th:replace="fragments :: footer"></div>
 </body>
 </html>

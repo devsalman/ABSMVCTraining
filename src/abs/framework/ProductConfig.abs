@@ -1,3 +1,5 @@
 //define your product configuration here
-productline MyProduct;
-	features DefaultFeature;
+productline InternetBanking;
+	features DefaultFeature, WithdrawFee, CheckMinimumBalance;
+	delta DFee(7500) when WithdrawFee;
+	delta DCheckBalance(100000) when CheckMinimumBalance;

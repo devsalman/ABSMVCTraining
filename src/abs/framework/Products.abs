@@ -1,2 +1,4 @@
 //define your product here
 product Default();
+product IBWithFee(WithdrawFee);
+product IBWithCheckBalance(CheckMinimumBalance);
