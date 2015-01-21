@@ -19,6 +19,7 @@ class RouteConfigImpl implements RouteConfig
             "/ib/withdrawForm.abs" => "MAccountController.AccountControllerImpl@withdrawForm";
             "/ib/withdraw.abs" => "MAccountController.AccountControllerImpl@withdraw";
             "/ib/checkBalance.abs" => "MAccountController.AccountControllerImpl@checkBalance";
+            "/ib/accountInfo.abs" => "MAccountController.AccountControllerImpl@accountInfo";
 			_ => "";
 		};
 		

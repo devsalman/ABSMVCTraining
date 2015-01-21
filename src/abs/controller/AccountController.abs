@@ -13,6 +13,7 @@ interface AccountController
 	Pair<String, List<Account>> deposit(ABSHttpRequest request);
 	Pair<String, List<Account>> withdrawForm(ABSHttpRequest request);
 	Pair<String, List<Account>> withdraw(ABSHttpRequest request);
+	Pair<String, List<Account>> accountInfo(ABSHttpRequest request);
 }
 
 class AccountControllerImpl implements AccountController
@@ -105,5 +106,17 @@ class AccountControllerImpl implements AccountController
 		dataModel = appendright(dataModel, account);
 
 		return Pair("checkBalance", dataModel);
+	}
+
+	Pair<String, List<Account>> accountInfo(ABSHttpRequest request)
+	{
+		AccountData db = new local AccountDataImpl();
+		db.init();
+
+		Account account = db.getAccount();
+		List<Account> dataModel = Nil;
+		dataModel = appendright(dataModel, account);
+
+		return Pair("accountInfo", dataModel);
 	}
 }
