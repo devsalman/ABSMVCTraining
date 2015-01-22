@@ -146,13 +146,3 @@ class UtilityImpl implements Utility
         return result;
     }
 }
-
-{
-	Utility u = new local UtilityImpl();
-	Int a = u.stringToInteger("12345");
-	Int b = u.stringToInteger("-12345");
-	Int c = u.stringToInteger("9");
-	Int d = u.stringToInteger("-9");
-	Int e = u.stringToInteger("7");
-	String finish = "";
-}

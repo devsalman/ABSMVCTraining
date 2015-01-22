@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Register Success</title>
+		<title>Internet Banking - Success</title>
 	</head>
 	<body>
-		<h1>Thank You!</h1>
-		<p>Your registration process has been finished</p>
-		
+		<div th:replace="fragments :: menu"></div>
+		<h3>Welcome, <span th:text="${data.name}"></span></h3>
+
+		<p>This is your account information:</p>
 		<table>
 			<tbody>
 				<tr>
@@ -25,21 +26,17 @@
 					<td><span th:text="${data.phone}"></span></td>
 				</tr>
 				<tr>
+					<td>Account Number</td>
+					<td>:</td>
+					<td><span th:text="${data.cardNumber}"></span></td>
+				</tr>
+				<tr>
 					<td>Account Type</td>
 					<td>:</td>
-					<td><span th:text="${data.kind}">%</span></td>
-				</tr>
-				<tr>
-					<td>Your Balance</td>
-					<td>:</td>
-					<td><span th:text="${data.balance}"></span></td>
-				</tr>
-				<tr>
-					<td>Account Interest</td>
-					<td>:</td>
-					<td><span th:text="${data.interest}">%</span></td>
+					<td><span th:text="${data.kind}"></span></td>
 				</tr>
 			</tbody>
 		</table>
 	</body>
+	<div th:replace="fragments :: footer"></div>
 </html>

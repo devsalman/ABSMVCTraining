@@ -5,83 +5,27 @@ import Account, AccountImpl from MAccountModel;
 
 interface AccountData 
 {
-
-    List<Account> all();
-    Account findByID(Int id);
-    Bool save(Account account);
-    Bool delete(Int id);
+	Unit init();
+	Account getAccount();
 }
 
 class AccountDataImpl implements AccountData 
 {
-
-    List<Account> accounts = Nil;
-    Int nextID = 0;
-
-    List<Account> all() 
-    { 
-        return accounts; 
-    }
-
-    Account findByID(Int id) 
-    { 
-        Account found = null;
-        Int count = length(accounts);
-        Int i = 0;
-
-        if(id != -1) 
-        {
-            while(i < count && found != null) 
-            {
-                Account current = nth(accounts, i);
-                Int currentID = current.getID();
-
-                if(currentID == id)
-                {
-                    found = current;
-                }
-
-                i = i + 1;
-            }
-        }
-
-        return found;
-    }
-
-    Bool save(Account account) 
-    {
-        Bool saved = False;
-        Int id = account.getID();
-        Account existing = this.findByID(id);
-
-        if(id != -1) 
-        {
-            accounts = without(accounts, existing);
-            accounts = appendright(accounts, account);
-            saved = True;
-        } 
-        else 
-        {
-            nextID = nextID + 1;
-            account.setID(nextID);
-            accounts = appendright(accounts, account);
-            saved = True;
-        }
-
-        return saved;
-    }
-
-    Bool delete(Int id) 
-    {
-        Bool deleted = False;
-        Account found = this.findByID(id);
-
-        if(found != null) 
-        {
-            accounts = without(accounts, found);
-            deleted = True;
-        }
-
-        return deleted;
-    }
+    Account account;
+	Unit init() 
+	{
+		this.account = new local AccountImpl();
+		this.account.setName("Squal Leonheart");
+		this.account.setAddress("Balamb Garden");
+		this.account.setBalance(1000000);
+		this.account.setKind("Personal");
+		this.account.setPhone("08436664119");
+		this.account.setPin("123456");
+		this.account.setCardNumber("0004456");
+	}
+	
+	Account getAccount()
+	{
+		return this.account;
+	}
 }

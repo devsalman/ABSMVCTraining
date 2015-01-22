@@ -3,8 +3,6 @@ export Account, AccountImpl;
 
 interface Account
 {
-    Unit setID(Int id);
-    Int getID();
     Unit setName(String name);
     String getName();
     Unit setAddress(String address);
@@ -13,32 +11,24 @@ interface Account
     String getPhone();
 	Unit setBalance(Int balance);
 	Int getBalance();
-	//Unit setInterest(Int interest);
-	//Int getInterest();
 	Unit setKind(String kind);
 	String getKind();
+	Unit setPin(String pin);
+	String getPin();
+    Unit setCardNumber(String cardNumber);
+    String getCardNumber();
 }
 
 class AccountImpl implements Account
 {
-    Int id = -1;
     String name = "";
     String address = "";
     String phone = "";
 	Int balance = 0;
-	//Int interest = 0;
     String kind = "";
-
-    Unit setID(Int id)
-    {
-        this.id = id;
-    }
-
-    Int getID() 
-    {
-        return this.id;
-    }
-
+    String pin = "";
+    String cardNumber = "";
+    
     Unit setName(String name)
     {
         this.name = name;
@@ -79,18 +69,6 @@ class AccountImpl implements Account
 		return this.balance;
 	}
 
-    /*
-	Unit setInterest(Int interest)
-	{
-		this.interest = interest;
-	}
-
-	Int getInterest()
-	{
-		return this.interest;
-	}
-    */
-
 	Unit setKind(String kind)
 	{
 		this.kind = kind;
@@ -100,4 +78,24 @@ class AccountImpl implements Account
 	{
 		return this.kind;
 	}
+	
+	Unit setPin(String pin)
+	{
+		this.pin = pin;
+	}
+	
+	String getPin()
+	{
+		return this.pin;
+	}
+
+    Unit setCardNumber(String cardNumber)
+    {
+        this.cardNumber = cardNumber;
+    }
+
+    String getCardNumber()
+    {
+        return this.cardNumber;
+    }
 }
