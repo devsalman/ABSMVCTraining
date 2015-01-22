@@ -1,8 +1,0 @@
-// Product line and features declaration
-productline InternetBanking;
-	features DefaultFeature, WithdrawFee, CheckMinimumBalance;
-// Delta applications
-/* BEGIN deltas related to: Type */
-delta DFee(7500) when WithdrawFee;
-delta DCheckBalance(100000) when CheckMinimumBalance;
-/* END */
