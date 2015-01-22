@@ -18,6 +18,7 @@ interface AccountController
 class AccountControllerImpl implements AccountController
 {
     Int fee = 0;
+
     Pair<String, List<Account>> loginForm(ABSHttpRequest request)
     {
         return Pair("login/form", Nil);
@@ -97,6 +98,9 @@ class AccountControllerImpl implements AccountController
 
 	Pair<String, List<Account>> checkBalance(ABSHttpRequest request)
 	{
+        AccountData db = new local AccountDataImpl();
+        db.init();
+
 		Account account = db.getAccount();
 		List<Account> dataModel = Nil;
 		dataModel = appendright(dataModel, account);
