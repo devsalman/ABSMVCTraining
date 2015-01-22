@@ -1,0 +1,27 @@
+delta DContactPageController;
+uses MAccountController;
+modifies interface AccountController 
+{
+    adds Pair<String, List<Account>> contactForm(ABSHttpRequest request);
+    adds Pair<String, List<Account>> contact(ABSHttpRequest request);
+}
+
+modifies class AccountControllerImpl 
+{
+    adds Pair<String, List<Account>> contactForm(ABSHttpRequest request) 
+    {
+        return Pair("contact/form", Nil);
+    }
+
+    adds Pair<String, List<Account>> contact(ABSHttpRequest request)
+    {
+        Utility util = new local UtilityImpl();
+
+        String subject = request.getInput("subject");
+        String priorityStr = request.getInput("priority");
+        int priority = util.stringToInteger(priorityStr);
+        String message = request.getInput("message");
+
+        return Pair("contact/success", Nil);
+    }
+}

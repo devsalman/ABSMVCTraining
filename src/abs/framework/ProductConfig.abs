@@ -1,0 +1,16 @@
+// Product line and features
+productline InternetBanking;
+features WithdrawFee, CheckMinimumBalance;
+
+// Delta modules
+/* BEGIN deltas for WithdrawFee */
+delta DWithdrawFee(7500) when WithdrawFee;
+/* END */
+
+/* BEGIN deltas for CheckMinimumBalance */
+delta DCheckMinimumBalance(100000) when CheckMinimumBalance;
+/* END */
+
+/* BEGIN deltas for ContactPage */
+delta DContactPageController when ContactPage;
+/* END */

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Internet Banking - Contact Form</title>
+</head>
+<body>
+	<div th:replace="fragments :: menu"></div>
+    <h3>Contact Form</h3>
+    <form method="POST" action="contact.abs">
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="subject">Name:</label>
+                    <td><input type="text" name="subject" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="priority">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="message" placeholder="Your message" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <input type="submit" value="Post" />
+    </form>
+	<div th:replace="fragments :: footer"></div>
+</body>
+</html>
