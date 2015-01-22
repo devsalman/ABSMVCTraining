@@ -1,5 +1,5 @@
-# ABSMVCTraining
-ABS MVC Case Study for training session
+# ABS MVC Training
+ABS MVC Case Study for ABS Training Session at Faculty of Computer Science Universitas Indonesia.
 
 ## Struktur direktor
 * src/abs/controller: merupakan direktori yang digunakan untuk meletakan modul Controller ABS yang dibuat.
