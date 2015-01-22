@@ -11,7 +11,7 @@ product IBWithWithdrawFee(
     Account,
         Deposit,
         Withdraw,
-            WithdrawFee
+            Fee
 );
 
 product IBWithCheckBalance(
@@ -19,7 +19,7 @@ product IBWithCheckBalance(
     Account,
         Deposit,
         Withdraw,
-            CheckMinimumBalance
+            CheckBalance
 );
 
 product IBWithContactPage(
